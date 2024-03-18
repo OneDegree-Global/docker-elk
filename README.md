@@ -32,11 +32,29 @@ Other available stack variants:
 ## tl;dr
 
 ```sh
+# initialize users
 docker-compose up setup
 ```
 
 ```sh
-docker-compose up
+# start ELK
+docker-compose -f docker-compose.yml -f extensions/filebeat/filebeat-compose.yml up elasticsearch logstash kibana -d
+
+# watch ELK logs
+docker-compose -f docker-compose.yml -f extensions/filebeat/filebeat-compose.yml logs elasticsearch logstash kibana -f
+
+# create index template `foo-*`
+
+# assign `create_doc` and `manage` index privileges to `filebeat_writer` role
+
+# start filebeat
+docker-compose -f docker-compose.yml -f extensions/filebeat/filebeat-compose.yml up filebeat -d
+
+# watch filebeat logs
+docker-compose -f docker-compose.yml -f extensions/filebeat/filebeat-compose.yml logs filebeat -f
+
+# restart filebeat
+docker-compose -f docker-compose.yml -f extensions/filebeat/filebeat-compose.yml restart filebeat
 ```
 
 ![Animated demo](https://user-images.githubusercontent.com/3299086/155972072-0c89d6db-707a-47a1-818b-5f976565f95a.gif)
